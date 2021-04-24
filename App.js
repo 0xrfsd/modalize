@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Layout } from './src/components/layout/Layout';
 import { Header } from './src/components/header/Header';
@@ -8,18 +8,21 @@ import { FixedContent } from './src/components/modals/FixedContent';
 import { SnappingList } from './src/components/modals/SnappingList';
 
 export default () => {
-  const modal = [];
+  const [modal, setModal] = useState([])
 
   const renderButtons = links => {
     return links.map((link, i) => (
-      <Button key={i} onPress={() => modal[i].openModal()} name={link} />
+      <Button key={i} onPress={() => modal[i].openModal() } name={link} />
     ));
   };
+
+  const openSnap = (index) => {
+    modal[index].text
+  }
 
   return (
     <Layout>
       <Header subheading="Desenvolvimento" />
-
       {renderButtons([
         'Abrir visualização do produto',
         'Abrir onboarding',
@@ -28,18 +31,22 @@ export default () => {
 
       <SimpleContent
         ref={el => {
-          modal[0] = el;
+          let newModal = modal
+          newModal[0] = el
+          setModal(newModal)
         }}
       />
       <FixedContent
         ref={el => {
-          modal[1] = el;
+          let newModal = modal
+          newModal[1] = el
+          setModal(newModal)
         }}
       />
       <SnappingList
-        ref={el => {
-          modal[2] = el;
-        }}
+        modal={modal}
+        setModal={setModal}
+        modalIndex={2}
       />
       {/* <AlwaysOpen /> */}
     </Layout>

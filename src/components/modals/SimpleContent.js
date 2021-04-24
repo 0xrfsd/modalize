@@ -62,8 +62,8 @@ export class SimpleContent extends React.PureComponent {
   render() {
     return (
       <Modalize
+        modalHeight={500}
         ref={this.modal}
-        handlePosition="inside"
         scrollViewProps={{
           showsVerticalScrollIndicator: false,
           stickyHeaderIndices: [0],
